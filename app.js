@@ -165,7 +165,7 @@ app.post('/login', async (req, res) => {
         req.session.userId = user._id;
         req.session.username = user.username;
 
-        res.cookie('username', user.username, { httpOnly: false, secure: true });
+        res.cookie('username', user.username, { httpOnly: false, secure: false });
 
 
         res.redirect('/'); // Redirect to a protected route after login
