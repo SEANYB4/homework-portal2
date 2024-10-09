@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Files</title>
+    <link rel="stylesheet" href="./styles2.css">
+</head>
+<body>
+    <h1>Download File</h1>
+
+    <a href="index.html">Back to Homepage</a>
+
+    <!-- <input type="text" id="fileId" placeholder="Enter File ID">
+    <button onclick="downloadFile()">Download</button> -->
+
+
+    <section>
+        <h1 id="heading">Available Files</h1>
+
+        <div class="fileListHeadings">
+            <h3>File Name</h3>
+            <h3>User</h3>
+            <h3>File ID</h3>
+        </div>
+        <ul id="fileList"></ul>
+    </section>
+    
+
+    <script>
+
+        function getCookie(name) {
+
+        let cookie = {};
+        document.cookie.split(';').forEach(function(el) {
+            let [key, value] = el.split('=');
+            cookie[key.trim()] = value;
+        });
+        return cookie[name];
+        }
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+        const username = getCookie('username');
+        if (username) {
+
+            document.getElementById('heading').textContent = `Available Files for ${username}:`;
+            
+        } 
+        });
+
+
+        function downloadFile() {
+            const fileId = document.getElementById('fileId').value;
+            if (!fileId) {
+                alert('Please enter a file ID');
+                return;
+            }
+            // Trigger the download
+            window.location.href = `/download/${fileId}`;
+        }
+
+        async function fetchFiles() {
+            try {
+                const response = await fetch('/files');
+                const files = await response.json();
+                const list = document.getElementById('fileList');
+                files.forEach(file => {
+                    const item = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = `/download/${file._id}`;
+                    link.textContent = file.fileName;
+                    link.download = file.fileName; // Suggests a filename for download
+
+
+
+                    const username_element = document.createElement('p');
+                    username_element.textContent = file.username;
+
+                    const id_element = document.createElement('p');
+                    id_element.textContent = file._id;
+
+                    item.appendChild(link);
+                    item.appendChild(username_element);
+                    item.appendChild(id_element);
+                    list.appendChild(item);
+                });
+                                
+            } catch (error) {
+                console.error('Failed to fetch files: ', error);
+            }
+        }
+
+        fetchFiles();
+    </script>
+</body>
+</html>

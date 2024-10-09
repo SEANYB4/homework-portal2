@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework-Portal</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <header>
+
+        <div id="logo_bar">
+            <img src="logo.png" alt="logo" class="image2">
+            <div id="title">
+                <h1>Sean's Homework Submission Portal</h1> 
+                <h2>作业提交门户</h2> 
+
+            </div>
+            
+        </div>
+       
+        <nav>
+            <ul>
+                <li id="loginLink"><a href="./login.html" >Login 登录</a></li>
+                <li id="signupLink"><a href="./signup.html" >Sign up 下载文件</a></li>
+                <li id="logoutButton">Logout 注销</li>
+            </ul>
+            
+
+
+            <h2 id="userGreeting">Welcome</h2>
+        </nav>
+    </header>
+    
+
+
+    <main>
+
+
+        <div id="sections">
+            <section class="hoverable">
+                <h2>About this application</h2>
+                <h3>关于此应用程序</h3>
+    
+                <p>Use this website to upload files due for submission for my classes.</p>
+                <p>If you have any questions about using the site please contact me on Wechat or by email.</p>
+                <p>Thanks</p>
+
+                <p>使用此网站上传我的课程应提交的文件。</p>
+                <p>如果您对使用本网站有任何疑问，请通过微信或电子邮件与我联系。</p>
+                <p>谢谢</p>
+    
+
+                <p>PLEASE NAME ALL YOUR UPLOADED FILES WITH YOUR STUDENT NUMBER!!!</p>
+                
+            </section>
+    
+    
+           
+    
+    
+            <section class="file_upload hoverable">
+                <h3>Upload a file</h3>
+                <h4>上传文件</h4>
+                <a href="upload.html">Click here to upload a file</a>
+    
+    
+            </section>
+    
+           
+    
+            <section class="file_download hoverable">
+    
+                <h3>Download a file</h3>
+                <h4>下载文件</h4>
+                <a href="download.html">Click here to go to file downloads</a>
+    
+            </section>
+
+        </div>
+
+       
+
+
+
+        <div id="image_gallery">
+            <img src="./image1.png" alt="student studying 1" class="image1">
+            <img src="./image2.png" alt="student studying 2" class="image1">
+        </div>
+
+
+    </main>
+
+
+    <footer>
+        <p>Copyright © 2024. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+<script>
+    function getCookie(name) {
+
+        let cookie = {};
+        document.cookie.split(';').forEach(function(el) {
+            let [key, value] = el.split('=');
+            cookie[key.trim()] = value;
+        });
+        return cookie[name];
+    }
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        const username = getCookie('username');
+        if (username) {
+
+            document.getElementById('userGreeting').textContent = `Welcome, ${username}!`;
+            document.getElementById('loginLink').style.display = 'none';
+            document.getElementById('signupLink').style.display = 'none';
+
+        } else {
+            document.getElementById('userGreeting').style.display = 'none';
+            document.getElementById('logoutButton').style.display = 'none';
+        }
+    });
+
+
+
+    document.getElementById('logoutButton').addEventListener('click', function() {
+
+        fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then(response => {
+            if (response.ok) {
+                // Clear any client-side storage or cookies if needed
+                document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                // Update the DOM
+                document.getElementById('userGreeting').style.display = 'none';
+                document.getElementById('loginLink').style.display = 'block';
+                document.getElementById('signupLink').style.display = 'block';
+                document.getElementById('logoutButton').style.display = 'none';
+                alert('You have been logged out.'); // Optional: confirm logout
+            } else {
+                alert('Logout failed. Please try again.');
+            }
+        }).catch(error => {
+            console.error('Logout error:', error);
+            alert('Logout failed. Please try again.');
+        });
+    });
+</script>
+</html>

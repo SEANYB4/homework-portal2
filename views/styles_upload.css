@@ -1,0 +1,34 @@
+body {
+    font-family: monospace, sans-serif;
+
+    background-color: #CBEEF4;
+
+
+}
+
+
+#card {
+
+
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+    border-radius: 20px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 33%;
+    margin-top: 5rem;
+    padding: 3rem;
+    
+}
+
+
+form {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3rem;
+}

@@ -1,0 +1,307 @@
+body {
+    font-family: monospace, sans-serif;
+
+    background-color: #CBEEF4;
+}
+
+
+main {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+}
+
+
+nav {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+nav ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+    background-color: rgb(50, 50, 200);
+    padding: 1rem;
+    
+}
+
+li a {
+
+    color: aliceblue;
+
+}
+
+
+.file_download {
+
+    background-color: aqua;
+    color: aliceblue;
+    width: 20rem;
+    
+
+    padding: 20px;
+}
+
+
+.file_upload {
+
+    background-color: orangered;
+    color: aliceblue;
+    width: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+
+   
+
+    padding: 20px;
+}
+
+#sections {
+
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+section {
+
+
+    border: 3px solid black;
+    margin: 1rem;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    width: 20rem;
+    padding: 10px;
+
+}
+
+
+.hoverable:hover {
+
+    transform: translateY(-10px);
+    background-color: #0056B3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+}
+
+
+
+#image_gallery {
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.image1 {
+
+    width: 300px;
+    height: 300px;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+
+.image2 {
+
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+}
+
+#logo_bar {
+
+    background-color: #32FD46;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 20px;
+    font-size: x-large;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+}
+
+
+#title {
+
+
+
+    text-align: right;
+}
+
+
+
+#logoutButton {
+
+    color: aliceblue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+
+@media (max-width: 600px) {
+    body {
+        font-family: monospace, sans-serif;
+    
+        background-color: #CBEEF4;
+    }
+    
+    
+    main {
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    
+    header, nav, main, footer {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    
+    nav {
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    
+    nav ul {
+        width: 100%;
+        list-style-type: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+    
+    nav ul li {
+        display: inline;
+        margin-right: 10px;
+        background-color: rgb(50, 50, 200);
+        padding: 1rem;
+        
+    }
+    
+    li a {
+    
+        color: aliceblue;
+    
+    }
+    
+    
+    .file_download {
+    
+        background-color: aqua;
+        color: aliceblue;
+        width: 20rem;
+        
+    
+        padding: 20px;
+    }
+    
+    
+    .file_upload {
+    
+        background-color: orangered;
+        color: aliceblue;
+        width: 20rem;
+        margin-left: auto;
+        margin-right: auto;
+    
+       
+    
+        padding: 20px;
+    }
+    
+    #sections {
+    
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+    
+    
+    section {
+    
+    
+        border: 3px solid black;
+        margin: 1rem;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        width: 20rem;
+        padding: 10px;
+    
+    }
+    
+    
+    .hoverable:hover {
+    
+        transform: translateY(-10px);
+        background-color: #0056B3;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    }
+    
+    
+    
+    #image_gallery {
+    
+        display: flex;
+        flex-direction: column;
+    }
+    
+    
+    
+    .image1 {
+    
+        width: 300px;
+        height: 300px;
+        margin-top: 20px;
+        border-radius: 20px;
+    }
+    
+    
+    .image2 {
+    
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+    }
+    
+    #logo_bar {
+    
+        background-color: #32FD46;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 20px;
+        font-size: x-large;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    }
+    
+}
