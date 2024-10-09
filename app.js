@@ -28,7 +28,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 
-const mongoUrl = `${process.env.MONGODB_URI}/file_uploads`; // Add the database name in the URI
+const mongoUrl = 'mongodb+srv://artemis45566:Kraiklin1@cluster0.m2t45.mongodb.net/file_uploads?retryWrites=true&w=majority&appName=Cluster0/file_uploads'; // Add the database name in the URI
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log('MongoDB connected'))
