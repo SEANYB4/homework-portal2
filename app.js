@@ -38,7 +38,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 const sessionStore = new MongoDBStore({
-    uri: process.env.MONGODB_URI,
+    uri: `mongodb+srv://artemis45566:Kraiklin1@cluster0.m2t45.mongodb.net/file_uploads?retryWrites=true&w=majority&appName=Cluster0/file_uploads`,
     collection: 'sessions'
 });
 
