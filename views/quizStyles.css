@@ -1,0 +1,25 @@
+.question {
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: #CBEaaa;
+
+    margin: 10px;
+}
+
+
+body {
+    font-family: monospace, sans-serif;
+
+    background-color: #CBEEF4;
+
+
+}
+
+
+#result {
+
+    margin: 10px;
+    background-color: coral;
+}

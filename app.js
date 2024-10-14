@@ -28,7 +28,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 
-const mongoUrl = 'mongodb+srv://artemis45566:Kraiklin1@cluster0.m2t45.mongodb.net/file_uploads?retryWrites=true&w=majority&appName=Cluster0/file_uploads'; // Add the database name in the URI
+const mongoUrl = `${process.env.MONGODB_URI}/file_uploads`; // Add the database name in the URI
 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => console.log('MongoDB connected'))
@@ -38,7 +38,7 @@ mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 
 
 const sessionStore = new MongoDBStore({
-    uri: 'mongodb+srv://artemis45566:Kraiklin1@cluster0.m2t45.mongodb.net/file_uploads?retryWrites=true&w=majority&appName=Cluster0/file_uploads',
+    uri: process.env.MONGODB_URI,
     collection: 'sessions'
 });
 
@@ -53,6 +53,8 @@ app.use(session({
     }
 }));
 
+// Middleware to parse JSON bodies
+app.use(express.json());
 
 
 const fileSchema = new mongoose.Schema({
@@ -81,7 +83,7 @@ const User = mongoose.model('User', userSchema);
 
 
 
-
+const quizAnswers = { q1: 'A', q2: 'A', q3: 'A', q4: 'A', q5: 'A', q6: 'A', q7: 'A', q8: 'A', q9: 'A', q10: 'C'};
 
 
 
@@ -165,7 +167,7 @@ app.post('/login', async (req, res) => {
         req.session.userId = user._id;
         req.session.username = user.username;
 
-        res.cookie('username', user.username, { httpOnly: false, secure: false });
+        res.cookie('username', user.username, { httpOnly: false, secure: true });
 
 
         res.redirect('/'); // Redirect to a protected route after login
@@ -261,7 +263,6 @@ app.get('/files', async (req, res) => {
 
     } else {
 
-
         try {
             const files = await UploadedFile.find({}, 'fileName username _id').lean();
             res.json(files);
@@ -269,13 +270,21 @@ app.get('/files', async (req, res) => {
             console.error('Failed to retrieve files:', error);
             res.status(500).send('Error fetching file list');
         }
-
-
     }
-    
 
-    
+});
 
+
+app.post('/submit-quiz', (req, res) => {
+    const responses = req.body;
+    let score = 0;
+    Object.keys(responses).forEach(question => {
+        if (responses[question] === quizAnswers[question]) {
+            score += 1;
+        }
+    });
+    res.json({ score: score });
+    
 });
 
 
