@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Management</title>
+    <link rel="stylesheet" href="course_styles.css">
+    <link rel="stylesheet" href="nav_styles.css">
+</head>
+<body>
+
+    <header>
+
+
+        <div id="logo_bar">
+            <img src="logo.png" alt="logo" class="image2">
+            <div id="title">
+                <h1>Sean's Homework Submission Portal</h1> 
+                <h2>作业提交门户</h2> 
+
+            </div>
+            
+        </div>
+       
+        <nav>
+            <ul>
+                <li id="homeLink"><a href="index.html">Home</a></li>
+                <li id="loginLink"><a href="./login.html" >Login 登录</a></li>
+                <li id="signupLink"><a href="./signup.html" >Sign up 下载文件</a></li>
+                <li id="logoutButton">Logout 注销</li>
+                <li id="courseManagementLink" style="display: none;"><a href="./course_management.html">Course Management</a></li>
+                <li id="myCoursesLink" style="display: none;"><a href="./my_courses.html">My Courses</a></li>
+                <li id="allCourses"><a href="./all_courses.html">View All Courses</a></li>
+
+                <li id="profileLink"><a href="./profile.html">Profile</a></li>
+            </ul>
+            
+
+
+            <h2 id="userGreeting">Welcome</h2>
+        </nav>
+
+        <h1>Course Management</h1>
+    </header>
+    
+
+    <div id="managementCard">
+
+        <h2>Course Management</h2>
+
+        <!-- Form to create a new course -->
+
+        <form action="/create-course" method="post">
+
+
+            <label for="title">Course Title</label>
+            <input type="text" id="title" name="title" required>
+
+
+            <label for="description">Course Description</label>
+            <textarea name="description" id="description" required></textarea>
+
+            <button type="submit">Create Course</button>
+
+        </form>
+
+        <!-- Placeholder for course list -->
+        <h3>Existing Courses</h3>
+        <div id="courseList">
+            
+            <!-- Dynamic content -->
+        </div>
+    </div>
+    
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            fetchCourses();
+        });
+            function fetchCourses() {
+
+                fetch('/courses')
+                    .then(response => response.json())
+                    .then(data => {
+
+                        const coursesContainer = document.getElementById('courseList');
+
+                        coursesContainer.innerHTML= ''; // Clear existing content
+                        data.forEach(course => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = `${course.title}: ${course.description}`;
+                            coursesContainer.appendChild(listItem);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetchin courses: ', error);
+                        coursesContainer.innerHTML = '<li>Error loading courses.</li>';
+                    });
+            }
+
+      
+
+        
+        
+    </script>
+</body>
+</html>

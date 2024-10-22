@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course</title>
+    <link rel="stylesheet" href="course.css">
+    <link rel="stylesheet" href="nav_styles.css">
+</head>
+<body>
+
+    <header>
+
+
+        <div id="logo_bar">
+            <img src="logo.png" alt="logo" class="image2">
+            <div id="title">
+                <h1>Sean's Homework Submission Portal</h1> 
+                <h2>作业提交门户</h2> 
+
+            </div>
+            
+        </div>
+       
+        <nav>
+            <ul>
+                <li id="homeLink"><a href="index.html">Home</a></li>
+                <li id="loginLink"><a href="./login.html" >Login 登录</a></li>
+                <li id="signupLink"><a href="./signup.html" >Sign up 下载文件</a></li>
+                <li id="logoutButton">Logout 注销</li>
+                <li id="courseManagementLink" style="display: none;"><a href="./course_management.html">Course Management</a></li>
+                <li id="myCoursesLink" style="display: none;"><a href="./my_courses.html">My Courses</a></li>
+                <li id="allCourses"><a href="./all_courses.html">View All Courses</a></li>
+
+                <li id="profileLink"><a href="./profile.html">Profile</a></li>
+            </ul>
+            
+
+
+            <h2 id="userGreeting">Welcome</h2>
+        </nav>
+
+        <h1>Course Profile</h1>
+    </header>
+    
+
+
+    <h1 id="courseName"></h1>
+
+    <p id="teacher"></p>
+
+    <p id="description"></p>
+
+
+
+    <button type="button" onclick="enroll()">Enroll on this course</button>
+
+    <script>
+
+            const params = new URLSearchParams(window.location.search);
+            const courseId = params.get('courseId');
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            
+
+            const heading = document.getElementById('courseName');
+            const teacher = document.getElementById('teacher');
+            const description = document.getElementById('description');
+
+
+            if (courseId) {
+
+                fetch(`/course/${courseId}`)
+                .then(response => response.json())
+                .then(course => {
+                    //display course details and enrollment options
+
+                    
+
+                    heading.innerText = course[0].title;
+                    teacher.innerText = course[0].teacher;
+                    description.innerText = course[0].description;
+
+
+                }).catch(error => {
+                    console.error('Error fetching course details: ', error);
+                });
+            } else {
+
+                console.error('No course ID provided.');
+            }
+
+        })
+
+        function getCookie(name) {
+
+        let cookie = {};
+        document.cookie.split(';').forEach(function(el) {
+            let [key, value] = el.split('=');
+            cookie[key.trim()] = value;
+        });
+        return cookie[name];
+        }
+
+        const username = getCookie('username');
+
+         // Construct data object to send
+        const data = { studentUsername: username, courseTitle: courseId };
+
+
+        function enroll() {
+            fetch('/assign-student', {
+
+            // Change this url to your assignment endpoint
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
+            body: JSON.stringify(data)
+
+            })
+
+            .then(result => {
+            console.log(result);
+            console.log(result.status);
+            if (result.status == 200) {
+                alert('Student assigned successfully!');
+            }
+
+
+            })
+            .catch(error => {
+            console.error('Error assigning student:', error);
+            alert('Failed to assign student');
+            });
+
+
+        }
+
+        
+    </script>
+    
+</body>
+</html>

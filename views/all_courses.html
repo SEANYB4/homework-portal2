@@ -3,20 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv='content-Security-Policy' content="default-src 'self'; script-src 'self' 'unsafe-inline';">
-    <title>Login</title>
-    <link rel="stylesheet" href="styles_login.css">
+    <title>All Courses</title>
+    <link rel="stylesheet" href="my_courses.css">
     <link rel="stylesheet" href="nav_styles.css">
 </head>
 <body>
+
+
+
     <header>
+
+
         <div id="logo_bar">
             <img src="logo.png" alt="logo" class="image2">
             <div id="title">
                 <h1>Sean's Homework Submission Portal</h1> 
                 <h2>作业提交门户</h2> 
+
             </div>
+            
         </div>
+       
         <nav>
             <ul>
                 <li id="homeLink"><a href="index.html">Home</a></li>
@@ -35,33 +42,49 @@
             <h2 id="userGreeting">Welcome</h2>
         </nav>
 
+        <h1>All Courses</h1>
 
-        <h1>Login</h1>
+
+       
     </header>
 
+    <section id="courses-list">
+
+
+        <!-- Courses will be loaded here dynamically -->
+    </section>
 
 
 
-    <div id="card">
-
-        <h2>Login</h2>
 
 
-        <form action="/login" method="post">
-
-
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Login</button>
-
-            
-        </form>
-        
-        
-    </div>
     
+
+
+    <script>
+
+
+        const coursesList = document.getElementById('courses-list');
+
+
+        fetch('/courses')
+        .then(response => response.json())
+        .then(courses => {
+            courses.forEach((course) => {
+
+                const courseElement = document.createElement('div');
+                courseElement.className = 'course-item';
+                courseElement.textContent = course.title;
+                courseElement.setAttribute('data-id', course.title); // Assuming each course has a unique `id`
+                courseElement.addEventListener('click', () => {
+                // Redirect to a new page with course details
+                window.location.href = `/course.html?courseId=${course.title}`; // Assuming each course has a unique `id`
+
+            })
+
+            coursesList.appendChild(courseElement);
+        })})
+
+    </script>
 </body>
 </html>

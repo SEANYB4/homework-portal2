@@ -21,9 +21,15 @@
        
         <nav>
             <ul>
+                <li id="homeLink"><a href="index.html">Home</a></li>
                 <li id="loginLink"><a href="./login.html" >Login 登录</a></li>
                 <li id="signupLink"><a href="./signup.html" >Sign up 下载文件</a></li>
                 <li id="logoutButton">Logout 注销</li>
+                <li id="courseManagementLink" style="display: none;"><a href="./course_management.html">Course Management</a></li>
+                <li id="myCoursesLink" style="display: none;"><a href="./my_courses.html">My Courses</a></li>
+                <li id="allCourses"><a href="./all_courses.html">View All Courses</a></li>
+
+                <li id="profileLink"><a href="./profile.html">Profile</a></li>
             </ul>
             
 
@@ -114,14 +120,28 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         const username = getCookie('username');
+
+        const role = getCookie('role')
+
+
         if (username) {
 
             document.getElementById('userGreeting').textContent = `Welcome, ${username}!`;
             document.getElementById('loginLink').style.display = 'none';
             document.getElementById('signupLink').style.display = 'none';
+            document.getElementById('myCoursesLink').style.display = 'block';
+
+
+            // Update the profile link to include the username
+            document.querySelector('#profileLink a').href = `./profile.html?userID=${username}`;
+
+            if (role === 'teacher') {
+                document.getElementById('courseManagementLink').style.display = 'block';
+            }
 
         } else {
             document.getElementById('userGreeting').style.display = 'none';
+            document.getElementById('profileLink').style.display = 'none';
             document.getElementById('logoutButton').style.display = 'none';
         }
     });
@@ -139,11 +159,13 @@
             if (response.ok) {
                 // Clear any client-side storage or cookies if needed
                 document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                 // Update the DOM
                 document.getElementById('userGreeting').style.display = 'none';
                 document.getElementById('loginLink').style.display = 'block';
                 document.getElementById('signupLink').style.display = 'block';
                 document.getElementById('logoutButton').style.display = 'none';
+                location.reload();
                 alert('You have been logged out.'); // Optional: confirm logout
             } else {
                 alert('Logout failed. Please try again.');
@@ -153,5 +175,20 @@
             alert('Logout failed. Please try again.');
         });
     });
+
+
+
+    document.querySelectorAll('.hoverable').forEach(section => {
+
+        section.addEventListener('click', function() {
+
+
+            let anchor = this.querySelector('a');
+            if (anchor) {
+
+                window.location.href = anchor.href;
+            }
+        })
+    })
 </script>
 </html>

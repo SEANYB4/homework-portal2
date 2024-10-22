@@ -1,0 +1,39 @@
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Header styles */
+h1 {
+    color: #2a2a72;
+    font-size: 24px;
+    margin-bottom: 0.5em;
+}
+
+/* Paragraph styles for text details */
+p {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+/* Styling the teacher paragraph to differentiate it */
+#teacher {
+    background-color: #e2e2f9;
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* Description box with more detailed text */
+#description {
+    background-color: #ffffff;
+    color: #555;
+}

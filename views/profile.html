@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="profile_styles.css">
+    <link rel="stylesheet" href="nav_styles.css">
+</head>
+<body>
+
+    <header>
+
+        <div id="logo_bar">
+            <img src="logo.png" alt="logo" class="image2">
+            <div id="title">
+                <h1>Sean's Homework Submission Portal</h1> 
+                <h2>作业提交门户</h2> 
+
+            </div>
+            
+        </div>
+       
+        <nav>
+            <ul>
+                <li id="homeLink"><a href="index.html">Home</a></li>
+                <li id="loginLink"><a href="./login.html" >Login 登录</a></li>
+                <li id="signupLink"><a href="./signup.html" >Sign up 下载文件</a></li>
+                <li id="logoutButton">Logout 注销</li>
+                <li id="courseManagementLink" style="display: none;"><a href="./course_management.html">Course Management</a></li>
+                <li id="myCoursesLink" style="display: none;"><a href="./my_courses.html">My Courses</a></li>
+                <li id="allCourses"><a href="./all_courses.html">View All Courses</a></li>
+
+                <li id="profileLink"><a href="./profile.html">Profile</a></li>
+            </ul>
+            
+
+
+            <h2 id="userGreeting">Welcome</h2>
+        </nav>
+
+        <h1>User Profile</h1>
+    </header>
+
+
+
+    <div id="card">
+
+        <h1>Username:</h1>
+        <p id="userName"></p>
+
+        <div id="updateUsername">
+            <h6>Change Username:</h6>
+            <input id="updateUsernameInput" type="text">
+            <button id="updateButton">Update</button>
+        </div>
+        
+        <h3>Role:</h3>
+        <p id="role"></p>
+
+        <h3>Enrolled Courses:</h3>
+        <ul id="courseList"></ul>
+    
+    </div>
+    
+
+    <script>
+
+        const params = new URLSearchParams(window.location.search);
+        const userID = params.get('userID');
+
+      
+
+        const username = document.getElementById('userName');
+        const updatedUsername = document.getElementById('updateUsernameInput');
+        const role = document.getElementById('role');
+        const courseList = document.getElementById('courseList');
+        
+      
+
+        function fetchUserData() {
+            if (userID) {
+                const username = document.getElementById('userName');
+                const role = document.getElementById('role');
+                const courseList = document.getElementById('courseList');
+
+                fetch(`/user/${userID}`)
+                .then(response => response.json())
+                .then(user => {
+
+                    // display user details
+                    username.innerText = user[0].username;
+                    role.innerText = user[0].role;
+
+                    let courses = user[0].courses;
+
+                    courses.forEach(courseArray => {
+
+                        let course = courseArray[0];
+                        let listElement = document.createElement('li');
+                        listElement.innerText = course.title;
+
+
+
+                        // Add a delete button for each course
+                        let deleteButton = document.createElement('button');
+                        deleteButton.innerHTML = 'Remove Course';
+                        deleteButton.onclick = function() {
+                            deleteCourse(course.title);
+                        }
+
+                        listElement.appendChild(deleteButton);
+                        courseList.appendChild(listElement);
+
+                    })
+                })
+            }
+
+        }
+
+
+
+        function updateProfile() {
+            console.log(updatedUsername);
+            fetch(`updateUser/${userID}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: updatedUsername.value,
+                    role: role.value
+                })
+            }).then(() => {
+                alert('Profile updated successfully!');
+                window.location.href = `/profile.html?userID=${updatedUsername.value}`;
+                
+            })
+        }
+
+
+        function deleteCourse(courseTitle) {
+
+            fetch(`/deleteCourse/${userID}/${courseTitle}`, {
+                method: 'DELETE'
+            }).then(() => {
+                alert("Course deleted successfully!");
+                fetchUserData(); // Refresh user data
+            })
+        }
+
+
+        updateButton.addEventListener('click', updateProfile);
+        fetchUserData();
+    
+    </script>
+
+
+</body>
+</html>

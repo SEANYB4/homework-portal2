@@ -1,0 +1,74 @@
+body {
+    font-family: monospace, sans-serif;
+
+    background-color: #CBEEF4;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+
+nav {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+nav ul {
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+    background-color: rgb(50, 50, 200);
+    padding: 1rem;
+    
+    
+}
+
+
+li a {
+
+    color: aliceblue;
+
+}
+
+#logo_bar {
+
+    background-color: #32FD46;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 20px;
+    font-size: x-large;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    padding: 1rem;
+}
+
+
+
+#logoutButton {
+
+    color: aliceblue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+.image2 {
+
+    width: 200px;
+    height: 200px;
+    border-radius: 20px;
+}

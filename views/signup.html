@@ -5,8 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="styles_signup.css">
+    <link rel="stylesheet" href="nav_styles.css">
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const roleSelect = document.getElementById('role');
+            const teacherPassword = "admin"; // Example password
+
+
+            const submitButton = document.getElementById('submitButton');
+
+            submitButton.addEventListener('click', function() {
+                if (roleSelect.value === 'teacher') {
+
+                    let passwordInput = prompt("Please enter the password for Teacher access:");
+
+                    if (passwordInput !== teacherPassword) {
+
+
+                        alert("Incorrect password. Access to Teacher role denied.");
+                        roleSelect.value = ""; // Resetting the selection
+                    }
+                }
+            })
+
+            roleSelect.addEventListener('change', function() {
+
+                if (roleSelect.value === 'teacher') {
+
+                    let passwordInput = prompt("Please enter the password for Teacher access:");
+
+                    if (passwordInput !== teacherPassword) {
+
+
+                        alert("Incorrect password. Access to Teacher role denied.");
+                        roleSelect.value = ""; // Resetting the selection
+                    }
+                }
+            });
+        });
+    </script>
+
+
 </head>
 <body>
+
+    <header>
+
+        <div id="logo_bar">
+            <img src="logo.png" alt="logo" class="image2">
+            <div id="title">
+                <h1>Sean's Homework Submission Portal</h1> 
+                <h2>作业提交门户</h2> 
+
+            </div>
+            
+        </div>
+       
+        <nav>
+            <ul>
+                <li id="homeLink"><a href="index.html">Home</a></li>
+                <li id="loginLink"><a href="./login.html" >Login 登录</a></li>
+                <li id="signupLink"><a href="./signup.html" >Sign up 下载文件</a></li>
+                <li id="logoutButton">Logout 注销</li>
+                <li id="courseManagementLink" style="display: none;"><a href="./course_management.html">Course Management</a></li>
+                <li id="myCoursesLink" style="display: none;"><a href="./my_courses.html">My Courses</a></li>
+                <li id="allCourses"><a href="./all_courses.html">View All Courses</a></li>
+
+                <li id="profileLink"><a href="./profile.html">Profile</a></li>
+            </ul>
+            
+
+
+            <h2 id="userGreeting">Welcome</h2>
+        </nav>
+
+        <h1>Sign Up</h1>
+    </header>
 
 
     <div id="card">
@@ -22,12 +98,28 @@
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
-            <button type="submit">Sign Up</button>
+
+
+
+
+
+            <!-- Role selection dropdown -->
+
+            <label for="role">Role</label>
+            <select name="role" id="role" required>
+
+                <option value="" disabled><selected>Select your role</selected></option>
+                <option value="teacher">Teacher</option>
+                <option value="student">Student</option>
+            </select>
+
+
+            <button id='submitButton' type="submit">Sign Up</button>
 
             
         </form>
         
-        <a href="index.html">Back to Homepage</a>
+        
     </div>
     
 </body>

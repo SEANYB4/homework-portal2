@@ -5,14 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download Files</title>
     <link rel="stylesheet" href="./styles2.css">
+    <link rel="stylesheet" href="nav_styles.css">
 </head>
 <body>
-    <h1>Download File</h1>
 
-    <a href="index.html">Back to Homepage</a>
 
-    <!-- <input type="text" id="fileId" placeholder="Enter File ID">
-    <button onclick="downloadFile()">Download</button> -->
+
+    <header>
+
+
+        <div id="logo_bar">
+            <img src="logo.png" alt="logo" class="image2">
+            <div id="title">
+                <h1>Sean's Homework Submission Portal</h1> 
+                <h2>作业提交门户</h2> 
+
+            </div>
+            
+        </div>
+       
+        <nav>
+            <ul>
+                <li id="homeLink"><a href="index.html">Home</a></li>
+                <li id="loginLink"><a href="./login.html" >Login 登录</a></li>
+                <li id="signupLink"><a href="./signup.html" >Sign up 下载文件</a></li>
+                <li id="logoutButton">Logout 注销</li>
+                <li id="courseManagementLink" style="display: none;"><a href="./course_management.html">Course Management</a></li>
+                <li id="myCoursesLink" style="display: none;"><a href="./my_courses.html">My Courses</a></li>
+                <li id="allCourses"><a href="./all_courses.html">View All Courses</a></li>
+
+                <li id="profileLink"><a href="./profile.html">Profile</a></li>
+            </ul>
+            
+
+
+            <h2 id="userGreeting">Welcome</h2>
+        </nav>
+
+        <h1>Download File</h1>
+    </header>
+    
 
 
     <section>
@@ -21,7 +53,8 @@
         <div class="fileListHeadings">
             <h3>File Name</h3>
             <h3>User</h3>
-            <h3>File ID</h3>
+            <h3>Date</h3>
+            <h3>Course</h3>
         </div>
         <ul id="fileList"></ul>
     </section>
@@ -52,15 +85,7 @@
         });
 
 
-        function downloadFile() {
-            const fileId = document.getElementById('fileId').value;
-            if (!fileId) {
-                alert('Please enter a file ID');
-                return;
-            }
-            // Trigger the download
-            window.location.href = `/download/${fileId}`;
-        }
+        
 
         async function fetchFiles() {
             try {
@@ -79,12 +104,16 @@
                     const username_element = document.createElement('p');
                     username_element.textContent = file.username;
 
-                    const id_element = document.createElement('p');
-                    id_element.textContent = file._id;
+                    const date_element = document.createElement('p');
+                    date_element.textContent = file.uploadedDate;
+
+                    const course_element = document.createElement('p');
+                    course_element.textContent = file.course;
 
                     item.appendChild(link);
                     item.appendChild(username_element);
-                    item.appendChild(id_element);
+                    item.appendChild(date_element);
+                    item.appendChild(course_element);
                     list.appendChild(item);
                 });
                                 
