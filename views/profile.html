@@ -196,6 +196,36 @@
                 document.getElementById('logoutButton').style.display = 'none';
             }
             });
+
+
+            document.getElementById('logoutButton').addEventListener('click', function() {
+
+                fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // Clear any client-side storage or cookies if needed
+                        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        // Update the DOM
+                        document.getElementById('userGreeting').style.display = 'none';
+                        document.getElementById('loginLink').style.display = 'block';
+                        document.getElementById('signupLink').style.display = 'block';
+                        document.getElementById('logoutButton').style.display = 'none';
+                        location.reload();
+                        alert('You have been logged out.'); // Optional: confirm logout
+                    } else {
+                        alert('Logout failed. Please try again.');
+                    }
+                }).catch(error => {
+                    console.error('Logout error:', error);
+                    alert('Logout failed. Please try again.');
+                });
+            });
+
                 
     </script>
 
