@@ -75,90 +75,105 @@
 
     <script>
 
+
+        function getCookie(name) {
+
+        let cookie = {};
+        document.cookie.split(';').forEach(function(el) {
+            let [key, value] = el.split('=');
+            cookie[key.trim()] = value;
+        });
+        return cookie[name];
+        }
+
+
+
+        function fetchCourses() {
+
+            fetch('/courses')
+                .then(response => response.json())
+                .then(data => {
+
+                    const coursesContainer = document.getElementById('courseList');
+
+                    coursesContainer.innerHTML= ''; // Clear existing content
+                    data.forEach(course => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${course.title}: ${course.description}`;
+                        coursesContainer.appendChild(listItem);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetchin courses: ', error);
+                    coursesContainer.innerHTML = '<li>Error loading courses.</li>';
+                });
+        }
+
+
         document.addEventListener('DOMContentLoaded', function () {
 
             fetchCourses();
         });
-            function fetchCourses() {
+            
 
-                fetch('/courses')
-                    .then(response => response.json())
-                    .then(data => {
+        document.getElementById('logoutButton').addEventListener('click', function() {
 
-                        const coursesContainer = document.getElementById('courseList');
-
-                        coursesContainer.innerHTML= ''; // Clear existing content
-                        data.forEach(course => {
-                            const listItem = document.createElement('li');
-                            listItem.textContent = `${course.title}: ${course.description}`;
-                            coursesContainer.appendChild(listItem);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error fetchin courses: ', error);
-                        coursesContainer.innerHTML = '<li>Error loading courses.</li>';
-                    });
-            }
-
-
-            document.getElementById('logoutButton').addEventListener('click', function() {
-
-                fetch('/logout', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                }).then(response => {
-                    if (response.ok) {
-                        // Clear any client-side storage or cookies if needed
-                        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                        document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                        // Update the DOM
-                        document.getElementById('userGreeting').style.display = 'none';
-                        document.getElementById('loginLink').style.display = 'block';
-                        document.getElementById('signupLink').style.display = 'block';
-                        document.getElementById('logoutButton').style.display = 'none';
-                        location.reload();
-                        alert('You have been logged out.'); // Optional: confirm logout
-                    } else {
-                        alert('Logout failed. Please try again.');
-                    }
-                }).catch(error => {
-                    console.error('Logout error:', error);
-                    alert('Logout failed. Please try again.');
-                });
-            });
-
-
-
-            document.addEventListener('DOMContentLoaded', function() {
-
-                const username = getCookie('username');
-
-                const role = getCookie('role')
-
-
-                if (username) {
-
-                    document.getElementById('userGreeting').textContent = `Welcome, ${username}!`;
-                    document.getElementById('loginLink').style.display = 'none';
-                    document.getElementById('signupLink').style.display = 'none';
-                    document.getElementById('myCoursesLink').style.display = 'block';
-
-
-                    // Update the profile link to include the username
-                    document.querySelector('#profileLink a').href = `./profile.html?userID=${username}`;
-
-                    if (role === 'teacher') {
-                        document.getElementById('courseManagementLink').style.display = 'block';
-                    }
-
-                } else {
-                    document.getElementById('userGreeting').style.display = 'none';
-                    document.getElementById('profileLink').style.display = 'none';
-                    document.getElementById('logoutButton').style.display = 'none';
+            fetch('/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
+            }).then(response => {
+                if (response.ok) {
+                    // Clear any client-side storage or cookies if needed
+                    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    // Update the DOM
+                    document.getElementById('userGreeting').style.display = 'none';
+                    document.getElementById('loginLink').style.display = 'block';
+                    document.getElementById('signupLink').style.display = 'block';
+                    document.getElementById('logoutButton').style.display = 'none';
+                    location.reload();
+                    alert('You have been logged out.'); // Optional: confirm logout
+                } else {
+                    alert('Logout failed. Please try again.');
+                }
+            }).catch(error => {
+                console.error('Logout error:', error);
+                alert('Logout failed. Please try again.');
             });
+        });
+
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const username = getCookie('username');
+
+            const role = getCookie('role')
+
+
+            if (username) {
+
+                document.getElementById('userGreeting').textContent = `Welcome, ${username}!`;
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('signupLink').style.display = 'none';
+                document.getElementById('myCoursesLink').style.display = 'block';
+
+
+                // Update the profile link to include the username
+                document.querySelector('#profileLink a').href = `./profile.html?userID=${username}`;
+
+                if (role === 'teacher') {
+                    document.getElementById('courseManagementLink').style.display = 'block';
+                }
+
+            } else {
+                document.getElementById('userGreeting').style.display = 'none';
+                document.getElementById('profileLink').style.display = 'none';
+                document.getElementById('logoutButton').style.display = 'none';
+            }
+        });
 
 
       
