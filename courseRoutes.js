@@ -157,7 +157,15 @@ router.get('/my-courses', requireLogin, async(req, res) => {
 
     const username = req.session.username;
     const user = await User.findOne({ username: username });
-    const courses = user.courses;
+    try {
+
+        const courses = user.courses;
+    } catch (error) {
+
+        console.log('Failed to fetch courses from database.');
+        res.status(500).send("Error fetching user's courses.");
+    }
+   
 
     if (courses[0]) {
         res.json(courses.map((course) => ({
