@@ -70,8 +70,15 @@ router.delete('/deleteCourse/:userID/:courseTitle', async (req, res) => {
     })
 
 
-    console.log(user.courses);
-    console.log(user);
+    try {
+        await user.save();
+    } catch(error) {
+        console.error('Failed to delete course', error);
+        res.status(500).send('Error deleting course');
+
+    }
+    
+    
 
 });
 
