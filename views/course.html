@@ -95,12 +95,12 @@
 
         function getCookie(name) {
 
-        let cookie = {};
-        document.cookie.split(';').forEach(function(el) {
-            let [key, value] = el.split('=');
-            cookie[key.trim()] = value;
-        });
-        return cookie[name];
+            let cookie = {};
+            document.cookie.split(';').forEach(function(el) {
+                let [key, value] = el.split('=');
+                cookie[key.trim()] = value;
+            });
+            return cookie[name];
         }
 
         const username = getCookie('username');
@@ -138,6 +138,36 @@
 
 
         }
+
+
+
+      
+
+            const role = getCookie('role')
+
+
+            if (username) {
+
+                document.getElementById('userGreeting').textContent = `Welcome, ${username}!`;
+                document.getElementById('loginLink').style.display = 'none';
+                document.getElementById('signupLink').style.display = 'none';
+                document.getElementById('myCoursesLink').style.display = 'block';
+
+
+                // Update the profile link to include the username
+                document.querySelector('#profileLink a').href = `./profile.html?userID=${username}`;
+
+                if (role === 'teacher') {
+                    document.getElementById('courseManagementLink').style.display = 'block';
+                }
+
+            } else {
+                document.getElementById('userGreeting').style.display = 'none';
+                document.getElementById('profileLink').style.display = 'none';
+                document.getElementById('logoutButton').style.display = 'none';
+            }
+       
+        
 
         
     </script>
