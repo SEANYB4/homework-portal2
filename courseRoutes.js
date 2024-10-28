@@ -160,24 +160,25 @@ router.get('/my-courses', requireLogin, async(req, res) => {
     try {
 
         const courses = user.courses;
+
+        if (courses[0]) {
+            res.json(courses.map((course) => ({
+
+                title: course[0].title,
+                description: course[0].description
+            })))
+
+        } else {
+
+            res.status(404).send('No Courses found for current user');
+        }
     } catch (error) {
 
         console.log('Failed to fetch courses from database.');
         res.status(500).send("Error fetching user's courses.");
     }
    
-
-    if (courses[0]) {
-        res.json(courses.map((course) => ({
-
-            title: course[0].title,
-            description: course[0].description
-        })))
-
-    } else {
-
-        res.status(404).send('No Courses found for current user');
-    }
+    
 
 });
 
